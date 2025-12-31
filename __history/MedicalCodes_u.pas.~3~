@@ -1,0 +1,119 @@
+unit MedicalCodes_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls;
+
+type
+  TfrmMedicalCodes = class(TForm)
+    lblHeading: TLabel;
+    tvCodes: TTreeView;
+    redText: TRichEdit;
+    btnClose: TButton;
+    procedure ItemClicked(Sender: TObject);
+    procedure btnCloseClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    procedure ShowScreen;
+  end;
+
+var
+  frmMedicalCodes: TfrmMedicalCodes;
+
+implementation
+
+uses
+Dashboard_u, Init_u;
+
+{$R *.dfm}
+
+procedure TfrmMedicalCodes.btnCloseClick(Sender: TObject);
+begin
+
+  // Close the Screen
+  frmMedicalCodes.Close;
+
+end;
+
+procedure TfrmMedicalCodes.ItemClicked(Sender: TObject);
+begin
+
+  // Clear redText
+  redText.Clear;
+
+  // Extract the Code that was selected
+  var sCode : string := tvCodes.Selected.Text;
+
+  // If the ICD-10 Codes heading was selected.
+  if tvCodes.Selected.Text = 'ICD-10 Codes' then
+  begin
+
+    redText.Clear;
+    redText.Lines.Add('ICD-10 Codes Viewer');
+
+    Exit;
+
+  end;
+
+  // If an ICD-10 Code was selected
+  if tvCodes.Selected.Parent.Text = 'ICD-10 Codes' then
+  begin
+
+    redText.Lines.Add('ICD-10 Code Index');
+
+    Init.tblICD.First;
+
+    while not Init.tblICD.Eof do
+    begin
+
+      if Init.tblICD['ICDCode'] = sCode then
+      begin
+
+        redText.Lines.Add('Selected Code:' + #13 + sCode);
+        redText.Lines.Add('Code Description:' + #13 + Init.tblICD['ICDDescription']);
+
+      end;
+
+      Init.tblICD.Next;
+
+    end;
+
+  end;
+
+end;
+
+procedure TfrmMedicalCodes.ShowScreen;
+begin
+
+  // Clear TreeView
+  tvCodes.Items.Clear;
+
+  // ICD-10 Codes
+
+    // Add ICD-10 Codes Item to the TreeView
+    var tvnMain : TTreeNode := tvCodes.Items.Add(nil, 'ICD-10 Codes');
+
+    // Add all the ICD-10 Codes to the TreeView from the Database as Subitems
+    var tvnSub : TTreeNode;
+
+    Init.tblICD.First;
+
+    while not Init.tblICD.Eof do
+    begin
+
+      tvnSub := tvCodes.Items.Add(tvnMain, Init.tblICD['ICDCode']);
+
+      Init.tblICD.Next;
+
+    end;
+
+  // Show Screen
+  frmMedicalCodes.Parent := frmDashboard;
+  frmMedicalCodes.Show;
+
+end;
+
+end.

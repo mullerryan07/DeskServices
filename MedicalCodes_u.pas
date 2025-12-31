@@ -47,39 +47,24 @@ begin
   // Extract the Code that was selected
   var sCode : string := tvCodes.Selected.Text;
 
-  // If the ICD-10 Codes heading was selected.
-  if tvCodes.Selected.Text = 'ICD-10 Codes' then
-  begin
-
-    redText.Clear;
-    redText.Lines.Add('ICD-10 Codes Viewer');
-
-    Exit;
-
-  end;
-
   // If an ICD-10 Code was selected
-  if tvCodes.Selected.Parent.Text = 'ICD-10 Codes' then
+
+  redText.Lines.Add('ICD-10 Code Index' + #13);
+
+  Init.tblICD.First;
+
+  while not Init.tblICD.Eof do
   begin
 
-    redText.Lines.Add('ICD-10 Code Index');
-
-    Init.tblICD.First;
-
-    while not Init.tblICD.Eof do
+    if Init.tblICD['ICDCode'] = sCode then
     begin
 
-      if Init.tblICD['ICDCode'] = sCode then
-      begin
-
-        redText.Lines.Add('Selected Code:' + #13 + sCode);
-        redText.Lines.Add('Code Description:' + #13 + Init.tblICD['ICDDescription']);
-
-      end;
-
-      Init.tblICD.Next;
+      redText.Lines.Add('Selected Code:' + #9 + sCode);
+      redText.Lines.Add('Description:' + #9 + Init.tblICD['ICDDescription']);
 
     end;
+
+    Init.tblICD.Next;
 
   end;
 
@@ -91,24 +76,17 @@ begin
   // Clear TreeView
   tvCodes.Items.Clear;
 
-  // ICD-10 Codes
+  // Add the ICD-10 Codes
+  Init.tblICD.First;
 
-    // Add ICD-10 Codes Item to the TreeView
-    var tvnMain : TTreeNode := tvCodes.Items.Add(nil, 'ICD-10 Codes');
+  while not Init.tblICD.Eof do
+  begin
 
-    // Add all the ICD-10 Codes to the TreeView from the Database as Subitems
-    var tvnSub : TTreeNode;
+    tvCodes.Items.Add(nil, Init.tblICD['ICDCode']);
 
-    Init.tblICD.First;
+    Init.tblICD.Next;
 
-    while not Init.tblICD.Eof do
-    begin
-
-      tvnSub := tvCodes.Items.Add(tvnMain, Init.tblICD['ICDCode']);
-
-      Init.tblICD.Next;
-
-    end;
+  end;
 
   // Show Screen
   frmMedicalCodes.Parent := frmDashboard;

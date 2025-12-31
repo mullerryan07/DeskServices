@@ -21,13 +21,13 @@ object frmMedicalCodes: TfrmMedicalCodes
   object lblHeading: TLabel
     Left = 32
     Top = 32
-    Width = 293
+    Width = 274
     Height = 59
     Margins.Left = 6
     Margins.Top = 6
     Margins.Right = 6
     Margins.Bottom = 6
-    Caption = 'Medical Codes'
+    Caption = 'ICD-10 Codes'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -43
