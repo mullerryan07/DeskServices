@@ -13,7 +13,6 @@ type
     Exit2: TMenuItem;
     MedicalAidLookup1: TMenuItem;
     MedicalAidLookup2: TMenuItem;
-    ICD10Codes1: TMenuItem;
     ICD10Codes2: TMenuItem;
     N1: TMenuItem;
     Appointments1: TMenuItem;
@@ -36,10 +35,10 @@ type
     procedure Exit1Click(Sender: TObject);
     procedure OnClose(Sender: TObject; var Action: TCloseAction);
     procedure MedicalAidLookup1Click(Sender: TObject);
-    procedure ICD10Codes1Click(Sender: TObject);
     procedure Stock2Click(Sender: TObject);
     procedure ListofSuppliers1Click(Sender: TObject);
     procedure Query1Click(Sender: TObject);
+    procedure MedicalAidLookup2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,7 +51,7 @@ var
 implementation
 
 uses
-Init_u;
+Init_u, MedicalCodes_u;
 
 {$R *.dfm}
 
@@ -60,16 +59,6 @@ procedure TfrmDashboard.Exit1Click(Sender: TObject);
 begin
 
   Application.Terminate;
-
-end;
-
-procedure TfrmDashboard.ICD10Codes1Click(Sender: TObject);
-begin
-
-  // ICD-10 Codes
-
-  // Calico Database Check
-  Init.CalicoCheck;
 
 end;
 
@@ -90,6 +79,17 @@ begin
 
   // Calico Database Check
   Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.MedicalAidLookup2Click(Sender: TObject);
+begin
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+  // Show Medical Codes Screen
+  frmMedicalCodes.ShowScreen;
 
 end;
 

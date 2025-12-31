@@ -36,10 +36,7 @@ object frmDashboard: TfrmDashboard
       end
       object MedicalAidLookup2: TMenuItem
         Caption = 'Medical Codes'
-        object ICD10Codes1: TMenuItem
-          Caption = 'ICD-10 Codes'
-          OnClick = ICD10Codes1Click
-        end
+        OnClick = MedicalAidLookup2Click
       end
       object N1: TMenuItem
         Caption = '-'

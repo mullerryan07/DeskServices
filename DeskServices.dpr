@@ -4,7 +4,7 @@ uses
   Vcl.Forms,
   Init_u in 'Init_u.pas' {Init},
   Dashboard_u in 'Dashboard_u.pas' {frmDashboard},
-  ICD_u in 'ICD_u.pas' {frmICD};
+  MedicalCodes_u in 'MedicalCodes_u.pas' {frmMedicalCodes};
 
 {$R *.res}
 
@@ -13,6 +13,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TInit, Init);
   Application.CreateForm(TfrmDashboard, frmDashboard);
-  Application.CreateForm(TfrmICD, frmICD);
+  Application.CreateForm(TfrmMedicalCodes, frmMedicalCodes);
   Application.Run;
 end.

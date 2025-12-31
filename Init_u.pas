@@ -87,6 +87,7 @@ begin
     dbCalicoConnect.Open;
 
       // ICD-10 Codes
+      lblProcess.Caption := 'Getting Calico ICD-10 Codes';
       tblICD := TADOTable.Create(Self);
       tblICD.Connection := dbCalicoConnect;
       tblICD.TableName := 'dbo.Codes_ICD';
@@ -95,6 +96,7 @@ begin
       dscICD.DataSet := tblICD;
 
       // Stock
+      lblProcess.Caption := 'Getting Calico Stock Index';
       tblStock := TADOTable.Create(Self);
       tblStock.Connection := dbCalicoConnect;
       tblStock.TableName := 'dbo.Stock_FieldsStd';
@@ -103,6 +105,7 @@ begin
       dscStock.DataSet := tblStock;
 
       // Stock Suppliers
+      lblProcess.Caption := 'Getting Calico Stock Suppliers';
       tblSuppliers := TADOTable.Create(Self);
       tblSuppliers.Connection := dbCalicoConnect;
       tblSuppliers.TableName := 'dbo.Stock_Supplier';
