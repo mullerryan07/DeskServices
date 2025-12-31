@@ -39,6 +39,7 @@ type
     procedure ListofSuppliers1Click(Sender: TObject);
     procedure Query1Click(Sender: TObject);
     procedure MedicalAidLookup2Click(Sender: TObject);
+    procedure Email2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,9 +52,16 @@ var
 implementation
 
 uses
-Init_u, MedicalCodes_u;
+Init_u, MedicalCodes_u, SendEmail_u;
 
 {$R *.dfm}
+
+procedure TfrmDashboard.Email2Click(Sender: TObject);
+begin
+
+  frmSendEmail.ShowScreen('','','','','');
+
+end;
 
 procedure TfrmDashboard.Exit1Click(Sender: TObject);
 begin

@@ -73,6 +73,7 @@ object frmDashboard: TfrmDashboard
       Caption = 'Email'
       object Email2: TMenuItem
         Caption = 'Send Email'
+        OnClick = Email2Click
       end
       object EmailPreferences1: TMenuItem
         Caption = 'Email Preferences'

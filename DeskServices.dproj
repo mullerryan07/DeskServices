@@ -140,6 +140,11 @@
             <Form>frmMedicalCodes</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="SendEmail_u.pas">
+            <Form>frmSendEmail</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="EASendMailObjLib_TLB.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -169,6 +174,18 @@
                 <DeployFile LocalName="DeskServices.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>DeskServices.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="DeskServices.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>DeskServices.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="DeskServices.rsm" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win64">
+                        <RemoteName>DeskServices.rsm</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
