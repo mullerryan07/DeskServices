@@ -4,10 +4,35 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus;
 
 type
-  TfrmDasboard = class(TForm)
+  TfrmDashboard = class(TForm)
+    MainMenu1: TMainMenu;
+    Exit1: TMenuItem;
+    Exit2: TMenuItem;
+    MedicalAidLookup1: TMenuItem;
+    MedicalAidLookup2: TMenuItem;
+    ICD10Codes1: TMenuItem;
+    ICD10Codes2: TMenuItem;
+    N1: TMenuItem;
+    Appointments1: TMenuItem;
+    Appointments2: TMenuItem;
+    Stock1: TMenuItem;
+    Stock2: TMenuItem;
+    ListofSuppliers1: TMenuItem;
+    ListofSuppliers2: TMenuItem;
+    Query1: TMenuItem;
+    Email1: TMenuItem;
+    Email2: TMenuItem;
+    EmailPreferences1: TMenuItem;
+    EmailPreferences2: TMenuItem;
+    Documentation1: TMenuItem;
+    N2: TMenuItem;
+    CodePolish1: TMenuItem;
+    N3: TMenuItem;
+    LicenseManager1: TMenuItem;
+    LicenseManager2: TMenuItem;
   private
     { Private declarations }
   public
@@ -15,7 +40,7 @@ type
   end;
 
 var
-  frmDasboard: TfrmDasboard;
+  frmDashboard: TfrmDashboard;
 
 implementation
 
