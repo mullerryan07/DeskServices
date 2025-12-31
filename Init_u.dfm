@@ -1,4 +1,4 @@
-object frmInit: TfrmInit
+object Init: TInit
   Left = 0
   Top = 0
   Margins.Left = 6
@@ -16,6 +16,7 @@ object frmInit: TfrmInit
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnCreate = FormCreate
   PixelsPerInch = 192
   TextHeight = 32
   object Image1: TImage
@@ -30654,5 +30655,10 @@ object frmInit: TfrmInit
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
+  end
+  object tTimer: TTimer
+    OnTimer = tTimerTimer
+    Left = 784
+    Top = 336
   end
 end

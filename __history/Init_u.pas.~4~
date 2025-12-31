@@ -1,0 +1,98 @@
+unit Init_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls;
+
+type
+  TfrmInit = class(TForm)
+    Image1: TImage;
+    lblProcess: TLabel;
+    tTimer: TTimer;
+    procedure FormCreate(Sender: TObject);
+    procedure tTimerTimer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+
+    // Calico Database Enabled
+    var bCalico : boolean;
+    procedure CalicoFeatures(bCalico : boolean);
+
+  end;
+
+var
+  frmInit: TfrmInit;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmInit.CalicoFeatures(bCalico: boolean);
+begin
+
+  if bCalico = True then
+  begin
+
+    // Enable all advanced Calico features
+
+  end
+  else
+  begin
+
+    // Disable all advanced Calico features
+
+  end;
+
+end;
+
+procedure TfrmInit.FormCreate(Sender: TObject);
+begin
+
+  // Status: Starting Up
+  lblProcess.Caption := 'Starting Up';
+
+  // Enable the Timer
+  tTimer.Enabled := True;
+
+end;
+
+procedure TfrmInit.tTimerTimer(Sender: TObject);
+begin
+
+  // Disable the Timer
+  tTimer.Enabled := False;
+
+  // CodePolish (The Debugger)
+
+  // Licensing
+
+  // Calico Features
+  if MessageDlg('', TMsgDlgType.mtInformation, [mbYes, mbNo], mrYes) = mrYes then
+  begin
+
+    // Set Calico Features to True
+    bCalico := True;
+    CalicoFeatures(bCalico); {Temp due to no Login}
+
+  end
+  else
+  begin
+
+    // Set Calico Features to False
+    bCalico := False;
+    CalicoFeatures(bCalico); {Temp due to no Login}
+
+  end;
+
+  // Templates
+
+  // Login
+  // This is currently replaced for the Dashboard directly as login is not available.
+
+end;
+
+end.

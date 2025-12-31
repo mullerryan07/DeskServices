@@ -17,6 +17,8 @@ object frmDashboard: TfrmDashboard
   Menu = MainMenu1
   Position = poScreenCenter
   WindowState = wsMaximized
+  ShowInTaskBar = True
+  OnClose = OnClose
   PixelsPerInch = 192
   TextHeight = 32
   object MainMenu1: TMainMenu
@@ -24,16 +26,19 @@ object frmDashboard: TfrmDashboard
     Top = 560
     object Exit1: TMenuItem
       Caption = 'Exit'
+      OnClick = Exit1Click
     end
     object Exit2: TMenuItem
       Caption = 'Medical Aids'
       object MedicalAidLookup1: TMenuItem
         Caption = 'Medical Aid Lookup'
+        OnClick = MedicalAidLookup1Click
       end
       object MedicalAidLookup2: TMenuItem
         Caption = 'Medical Codes'
         object ICD10Codes1: TMenuItem
           Caption = 'ICD-10 Codes'
+          OnClick = ICD10Codes1Click
         end
       end
       object N1: TMenuItem
@@ -53,15 +58,18 @@ object frmDashboard: TfrmDashboard
       Caption = 'Stock'
       object Stock2: TMenuItem
         Caption = 'Stock Lookup'
+        OnClick = Stock2Click
       end
       object ListofSuppliers1: TMenuItem
         Caption = 'List of Suppliers'
+        OnClick = ListofSuppliers1Click
       end
     end
     object ListofSuppliers2: TMenuItem
       Caption = 'Patients'
       object Query1: TMenuItem
         Caption = 'Query'
+        OnClick = Query1Click
       end
     end
     object Email1: TMenuItem

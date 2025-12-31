@@ -1,0 +1,113 @@
+unit Init_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls;
+
+type
+  TfrmInit = class(TForm)
+    Image1: TImage;
+    lblProcess: TLabel;
+    tTimer: TTimer;
+    procedure FormCreate(Sender: TObject);
+    procedure tTimerTimer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+
+    // Calico Database Enabled
+    var bCalico : boolean;
+    procedure CalicoFeatures(bCalico : boolean);
+    procedure CalicoCheck;
+
+  end;
+
+var
+  frmInit: TfrmInit;
+
+implementation
+
+uses
+Dashboard_u;
+
+{$R *.dfm}
+
+procedure TfrmInit.CalicoCheck;
+begin
+
+  MessageDlg('This function requires Advanced Calico Features to be enabled. Please restart DeskServices to continue, and when prompted, click "Yes".', TMsgDlgType.mtError, [mbOK], mrOk);
+  Exit;
+
+end;
+
+procedure TfrmInit.CalicoFeatures(bCalico: boolean);
+begin
+
+  if bCalico = True then
+  begin
+
+    // Enable all advanced Calico features
+
+  end;
+
+end;
+
+procedure TfrmInit.FormCreate(Sender: TObject);
+begin
+
+  // Status: Starting Up
+  lblProcess.Caption := 'Starting Up';
+
+  // Enable the Timer
+  tTimer.Enabled := True;
+
+end;
+
+procedure TfrmInit.tTimerTimer(Sender: TObject);
+begin
+
+  // Disable the Timer
+  tTimer.Enabled := False;
+
+  // CodePolish (The Debugger)
+  lblProcess.Caption := 'CodePolish';
+
+  // Licensing
+  lblProcess.Caption := 'Licensing';
+
+  // Calico Features
+  lblProcess.Caption := 'Calico Advanced Features';
+
+  if MessageDlg('Would you like to utilise advanced features in your current session?', TMsgDlgType.mtConfirmation, [mbYes, mbNo], mrYes) = mrYes then
+  begin
+
+    // Set Calico Features to True
+    bCalico := True;
+    CalicoFeatures(bCalico);
+
+  end
+  else
+  begin
+
+    // Set Calico Features to False
+    bCalico := False;
+    CalicoFeatures(bCalico);
+
+  end;
+
+  // Templates
+  lblProcess.Caption := 'Templates';
+
+  // Login
+  // This is currently replaced for the Dashboard directly as login is not available.
+  lblProcess.Caption := 'Completed';
+
+  frmDashboard.Show;
+  frmInit.Hide;
+
+end;
+
+end.

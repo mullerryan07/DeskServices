@@ -2,13 +2,15 @@ program DeskServices;
 
 uses
   Vcl.Forms,
-  Init_u in 'Init_u.pas' {frmInit};
+  Init_u in 'Init_u.pas' {Init},
+  Dashboard_u in 'Dashboard_u.pas' {frmDashboard};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmInit, frmInit);
+  Application.CreateForm(TInit, Init);
+  Application.CreateForm(TfrmDashboard, frmDashboard);
   Application.Run;
 end.

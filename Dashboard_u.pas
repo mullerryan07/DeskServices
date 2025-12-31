@@ -33,6 +33,13 @@ type
     N3: TMenuItem;
     LicenseManager1: TMenuItem;
     LicenseManager2: TMenuItem;
+    procedure Exit1Click(Sender: TObject);
+    procedure OnClose(Sender: TObject; var Action: TCloseAction);
+    procedure MedicalAidLookup1Click(Sender: TObject);
+    procedure ICD10Codes1Click(Sender: TObject);
+    procedure Stock2Click(Sender: TObject);
+    procedure ListofSuppliers1Click(Sender: TObject);
+    procedure Query1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,6 +51,73 @@ var
 
 implementation
 
+uses
+Init_u;
+
 {$R *.dfm}
+
+procedure TfrmDashboard.Exit1Click(Sender: TObject);
+begin
+
+  Application.Terminate;
+
+end;
+
+procedure TfrmDashboard.ICD10Codes1Click(Sender: TObject);
+begin
+
+  // ICD-10 Codes
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.ListofSuppliers1Click(Sender: TObject);
+begin
+
+  // List of Stock Suppliers
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.MedicalAidLookup1Click(Sender: TObject);
+begin
+
+  // Medical Aid Lookup
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.OnClose(Sender: TObject; var Action: TCloseAction);
+begin
+
+  Application.Terminate;
+
+end;
+
+procedure TfrmDashboard.Query1Click(Sender: TObject);
+begin
+
+  // Patient Query
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.Stock2Click(Sender: TObject);
+begin
+
+  // Stock Lookup
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
 
 end.
