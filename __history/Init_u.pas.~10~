@@ -236,11 +236,6 @@ begin
   // Templates
   lblProcess.Caption := 'Templates';
 
-  // Email
-  sEmailServer := 'mail.onlineinnovations.com';
-  sEmailAddress := 'worcester@specstores.co.za';
-  sEmailPassword := 'Kitkat@0713';
-
   // Login
   // This is currently replaced for the Dashboard directly as login is not available.
   lblProcess.Caption := 'Completed';

@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
-  Vcl.ExtCtrls, ADODB, DB, EASendMailObjLib_TLB;
+  Vcl.ExtCtrls, ADODB, DB;
 
 type
   TInit = class(TForm)
@@ -17,12 +17,6 @@ type
   private
     { Private declarations }
   public
-
-    // Send an email
-    var sEmailAddress : string;
-    var sEmailPassword : string;
-    var sEmailServer : string;
-    procedure SendEmail(sReceipient, sSubject, sBody, sAttachmentOne, sAttachmentTwo : string);
 
     // Calico Database Enabled
     var bCalico : boolean;
@@ -46,13 +40,6 @@ type
       var dscSuppliers : TDataSource;
 
   end;
-
-const
-  ConnectNormal = 0;
-  ConnectSSLAuto = 1;
-  ConnectSTARTTLS = 2;
-  ConnectDirectSSL = 3;
-  ConnectTryTLS = 4;
 
 var
   Init: TInit;
@@ -141,66 +128,6 @@ begin
 
 end;
 
-procedure TInit.SendEmail(sReceipient, sSubject, sBody, sAttachmentOne,
-  sAttachmentTwo: string);
-begin
-
-  // Init
-  var oSMTP : TMail;
-  oSmtp := TMail.Create(Application);
-  oSmtp.LicenseCode := 'TryIt';
-
-  // Sender Address
-  oSmtp.FromAddr := sEmailAddress;
-
-  // Recipient
-  oSmtp.AddRecipientEx(sReceipient, 0);
-
-  // Email Subject
-  oSmtp.Subject := sSubject;
-
-  // Set HTML body format
-  oSmtp.BodyFormat := 1;
-  // Set HTML body text
-  oSmtp.BodyText := '<font size=5>This is</font> <font color=red><b>a test</b></font>';
-
-  {// Add attachment from local disk
-  if oSmtp.AddAttachment('c:\test.doc') <> 0 then
-    ShowMessage('Failed to add attachment with error: ' +
-    oSmtp.GetLastErrDescription());
-
-  // Add attachment from remote website
-  if oSmtp.AddAttachment('http://www.emailarchitect.net/webapp/img/logo.jpg') <> 0 then
-    ShowMessage('Failed to add attachment with error: ' +
-    oSmtp.GetLastErrDescription());     }
-
-  // SMTP Server Address
-  oSmtp.ServerAddr := sEmailServer;
-
-  // Authentication with Server
-  oSmtp.UserName := sEmailAddress;
-  oSmtp.Password := sEmailPassword;
-
-  // ConnectTryTLS means if server supports SSL/TLS connection, SSL/TLS is used automatically
-  oSmtp.ConnectType := ConnectTryTLS;
-
-  // If your server uses 587 port
-  // oSmtp.ServerPort := 587;
-
-  // If your server uses 25/587/465 port with SSL/TLS
-  // oSmtp.ConnectType := ConnectSSLAuto;
-  // oSmtp.ServerPort := 587; // 25 or 587 or 465
-
-  // Send Email
-  ShowMessage('start to send email ...');
-  if oSmtp.SendMail() = 0 then
-    ShowMessage('email was sent successfully!')
-  else
-    ShowMessage('failed to send email with the following error: '
-    + oSmtp.GetLastErrDescription());
-
-end;
-
 procedure TInit.tTimerTimer(Sender: TObject);
 begin
 
@@ -235,11 +162,6 @@ begin
 
   // Templates
   lblProcess.Caption := 'Templates';
-
-  // Email
-  sEmailServer := 'mail.onlineinnovations.com';
-  sEmailAddress := 'worcester@specstores.co.za';
-  sEmailPassword := 'Kitkat@0713';
 
   // Login
   // This is currently replaced for the Dashboard directly as login is not available.
