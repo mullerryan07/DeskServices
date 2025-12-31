@@ -3,8 +3,7 @@ program DeskServices;
 uses
   Vcl.Forms,
   Init_u in 'Init_u.pas' {Init},
-  Dashboard_u in 'Dashboard_u.pas' {frmDashboard},
-  ICD_u in 'ICD_u.pas' {frmICD};
+  Dashboard_u in 'Dashboard_u.pas' {frmDashboard};
 
 {$R *.res}
 
@@ -13,6 +12,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TInit, Init);
   Application.CreateForm(TfrmDashboard, frmDashboard);
-  Application.CreateForm(TfrmICD, frmICD);
   Application.Run;
 end.
