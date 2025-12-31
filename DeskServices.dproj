@@ -145,6 +145,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="EASendMailObjLib_TLB.pas"/>
+        <DCCReference Include="MedicalAidView_u.pas">
+            <Form>frmMedicalAidView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
