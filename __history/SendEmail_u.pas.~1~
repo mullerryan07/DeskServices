@@ -1,0 +1,47 @@
+unit SendEmail_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TfrmSendEmail = class(TForm)
+    lblHeading: TLabel;
+    lblTo: TLabel;
+    edtTo: TEdit;
+    lblSubject: TLabel;
+    edtSubject: TEdit;
+    memText: TMemo;
+    btnSend: TButton;
+  private
+    { Private declarations }
+  public
+    procedure ShowScreen(sEmail, sSubject, sBody, sAttachmentOne, sAttachmentTwo : string);
+  end;
+
+var
+  frmSendEmail: TfrmSendEmail;
+
+implementation
+
+uses
+Init_u, Dashboard_u;
+
+{$R *.dfm}
+
+procedure TfrmSendEmail.ShowScreen(sEmail, sSubject, sBody, sAttachmentOne, sAttachmentTwo : string);
+begin
+
+  // Add Details
+  edtEmai
+
+
+  // Show Form Screen
+  frmSendEmail.Parent := frmDashboard;
+  frmSendEmail.Show;
+
+end;
+
+end.
