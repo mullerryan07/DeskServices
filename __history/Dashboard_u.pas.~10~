@@ -55,7 +55,7 @@ var
 implementation
 
 uses
-Init_u, MedicalCodes_u, SendEmail_u, Stores_u, MedicalAid_u;
+Init_u, MedicalCodes_u, SendEmail_u, Stores_u;
 
 {$R *.dfm}
 
@@ -97,11 +97,10 @@ end;
 procedure TfrmDashboard.MedicalAidLookup1Click(Sender: TObject);
 begin
 
+  // Medical Aid Lookup
+
   // Calico Database Check
   Init.CalicoCheck;
-
-  // Show Medical Aid Screen
-  frmMedicalAid.ShowScreen;
 
 end;
 

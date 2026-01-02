@@ -1,0 +1,42 @@
+unit MedicalAid_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TfrmMedicalAid = class(TForm)
+    lblHeading: TLabel;
+    ListBox1: TListBox;
+    btnClose: TButton;
+    btnView: TButton;
+  private
+    { Private declarations }
+  public
+    procedure ShowScreen;
+  end;
+
+var
+  frmMedicalAid: TfrmMedicalAid;
+
+implementation
+
+uses
+Dashboard_u;
+
+{$R *.dfm}
+
+{ TfrmMedicalAid }
+
+procedure TfrmMedicalAid.ShowScreen;
+begin
+
+  // Show Screen
+  frmMedicalAid.Parent := frmDashboard;
+  frmMedicalAid.Show;
+
+end;
+
+end.

@@ -146,7 +146,7 @@ begin
       dscStores.DataSet := tblStores;
 
       // Medical Aids
-      lblProcess.Caption := 'Getting Calico Medical Aid Index';
+      lblProcess.Caption := 'Getting Calico Stock Index';
       tblMedicalAid := TADOTable.Create(Self);
       tblMedicalAid.Connection := dbCalicoConnect;
       tblMedicalAid.TableName := 'dbo.Sec_MedicalAid';
