@@ -79,6 +79,13 @@ object frmDashboard: TfrmDashboard
         Caption = 'Email Preferences'
       end
     end
+    object Lookup1: TMenuItem
+      Caption = 'Lookup'
+      object Lookup2: TMenuItem
+        Caption = 'Stores'
+        OnClick = Lookup2Click
+      end
+    end
     object EmailPreferences2: TMenuItem
       Caption = 'Help'
       object Documentation1: TMenuItem

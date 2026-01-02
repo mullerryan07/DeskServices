@@ -32,6 +32,8 @@ type
     N3: TMenuItem;
     LicenseManager1: TMenuItem;
     LicenseManager2: TMenuItem;
+    Lookup1: TMenuItem;
+    Lookup2: TMenuItem;
     procedure Exit1Click(Sender: TObject);
     procedure OnClose(Sender: TObject; var Action: TCloseAction);
     procedure MedicalAidLookup1Click(Sender: TObject);
@@ -40,6 +42,7 @@ type
     procedure Query1Click(Sender: TObject);
     procedure MedicalAidLookup2Click(Sender: TObject);
     procedure Email2Click(Sender: TObject);
+    procedure Lookup2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,7 +55,7 @@ var
 implementation
 
 uses
-Init_u, MedicalCodes_u, SendEmail_u;
+Init_u, MedicalCodes_u, SendEmail_u, Stores_u;
 
 {$R *.dfm}
 
@@ -77,6 +80,17 @@ begin
 
   // Calico Database Check
   Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.Lookup2Click(Sender: TObject);
+begin
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+  // Show Form Screen
+  frmStores.ShowScreen;
 
 end;
 

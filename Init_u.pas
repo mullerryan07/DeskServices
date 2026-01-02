@@ -45,6 +45,16 @@ type
       var tblSuppliers : TADOTable;
       var dscSuppliers : TDataSource;
 
+      // Stores
+      var tblStores : TADOTable;
+      var dscStores : TDataSource;
+
+      // Medical Aids
+      var tblMedicalAid : TADOTable;
+      var dscMedicalAid : TDataSource;
+      var tblMedicalAidPlans : TADOTable;
+      var dscMedicalAidPlans : TDataSource;
+
   end;
 
 const
@@ -125,6 +135,24 @@ begin
       tblSuppliers.Open;
       dscSuppliers := TDataSource.Create(Self);
       dscSuppliers.DataSet := tblSuppliers;
+
+      // Stores
+      lblProcess.Caption := 'Getting Calico Stores';
+      tblStores := TADOTable.Create(Self);
+      tblStores.Connection := dbCalicoConnect;
+      tblStores.TableName := 'dbo.Stores';
+      tblStores.Open;
+      dscStores := TDataSource.Create(Self);
+      dscStores.DataSet := tblStores;
+
+      // Medical Aids
+      lblProcess.Caption := 'Getting Calico Stock Index';
+      tblMedicalAid := TADOTable.Create(Self);
+      tblMedicalAid.Connection := dbCalicoConnect;
+      tblMedicalAid.TableName := 'dbo.Sec_MedicalAid';
+      tblMedicalAid.Open;
+      dscMedicalAid := TDataSource.Create(Self);
+      dscMedicalAid.DataSet := tblMedicalAid;
 
   end;
 
