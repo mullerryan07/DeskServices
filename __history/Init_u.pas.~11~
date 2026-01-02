@@ -1,0 +1,253 @@
+unit Init_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls, ADODB, DB, EASendMailObjLib_TLB;
+
+type
+  TInit = class(TForm)
+    Image1: TImage;
+    lblProcess: TLabel;
+    tTimer: TTimer;
+    procedure FormCreate(Sender: TObject);
+    procedure tTimerTimer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+
+    // Send an email
+    var sEmailAddress : string;
+    var sEmailPassword : string;
+    var sEmailServer : string;
+    procedure SendEmail(sReceipient, sSubject, sBody, sAttachmentOne, sAttachmentTwo : string);
+
+    // Calico Database Enabled
+    var bCalico : boolean;
+    procedure CalicoFeatures(bCalico : boolean);
+    procedure CalicoCheck;
+
+    // Calico Database
+
+    var dbCalicoConnect: TADOConnection;
+
+      // ICD10 Codes
+      var tblICD : TADOTable;
+      var dscICD: TDataSource;
+
+      // Stock
+      var tblStock : TADOTable;
+      var dscStock : TDataSource;
+
+      // Stock Suppliers
+      var tblSuppliers : TADOTable;
+      var dscSuppliers : TDataSource;
+
+  end;
+
+const
+  ConnectNormal = 0;
+  ConnectSSLAuto = 1;
+  ConnectSTARTTLS = 2;
+  ConnectDirectSSL = 3;
+  ConnectTryTLS = 4;
+
+var
+  Init: TInit;
+
+implementation
+
+uses
+Dashboard_u;
+
+{$R *.dfm}
+
+procedure TInit.CalicoCheck;
+begin
+
+  if bCalico = False then
+  begin
+
+    MessageDlg('This function requires Advanced Calico Features to be enabled. Please restart DeskServices to continue, and when prompted, click "Yes".', TMsgDlgType.mtError, [mbOK], mrOk);
+    Exit;
+
+  end;
+
+end;
+
+procedure TInit.CalicoFeatures(bCalico: boolean);
+begin
+
+  if bCalico = True then
+  begin
+
+    // Calico Database Connection
+
+    dbCalicoConnect := TADOConnection.Create(Self);
+    dbCalicoConnect.LoginPrompt := False;
+    dbCalicoConnect.Connected := False;
+
+    dbCalicoConnect.ConnectionString :=
+      'Provider=SQLOLEDB;' +
+      'Data Source=SERVER\SQLEXPRESS;' +
+      'Initial Catalog=Calico;' +
+      'User ID=sa;' +
+      'Password=Password1;' +
+      'Persist Security Info=False;';
+
+    dbCalicoConnect.Open;
+
+      // ICD-10 Codes
+      lblProcess.Caption := 'Getting Calico ICD-10 Codes';
+      tblICD := TADOTable.Create(Self);
+      tblICD.Connection := dbCalicoConnect;
+      tblICD.TableName := 'dbo.Codes_ICD';
+      tblICD.Open;
+      dscICD := TDataSource.Create(Self);
+      dscICD.DataSet := tblICD;
+
+      // Stock
+      lblProcess.Caption := 'Getting Calico Stock Index';
+      tblStock := TADOTable.Create(Self);
+      tblStock.Connection := dbCalicoConnect;
+      tblStock.TableName := 'dbo.Stock_FieldsStd';
+      tblStock.Open;
+      dscStock := TDataSource.Create(Self);
+      dscStock.DataSet := tblStock;
+
+      // Stock Suppliers
+      lblProcess.Caption := 'Getting Calico Stock Suppliers';
+      tblSuppliers := TADOTable.Create(Self);
+      tblSuppliers.Connection := dbCalicoConnect;
+      tblSuppliers.TableName := 'dbo.Stock_Supplier';
+      tblSuppliers.Open;
+      dscSuppliers := TDataSource.Create(Self);
+      dscSuppliers.DataSet := tblSuppliers;
+
+  end;
+
+end;
+
+procedure TInit.FormCreate(Sender: TObject);
+begin
+
+  // Status: Starting Up
+  lblProcess.Caption := 'Starting Up';
+
+  // Enable the Timer
+  tTimer.Enabled := True;
+
+end;
+
+procedure TInit.SendEmail(sReceipient, sSubject, sBody, sAttachmentOne,
+  sAttachmentTwo: string);
+begin
+
+  // Init
+  var oSMTP : TMail;
+  oSmtp := TMail.Create(Application);
+  oSmtp.LicenseCode := 'TryIt';
+
+  // Sender Address
+  oSmtp.FromAddr := sEmailAddress;
+
+  // Recipient
+  oSmtp.AddRecipientEx(sReceipient, 0);
+
+  // Email Subject
+  oSmtp.Subject := sSubject;
+
+  // Set HTML body format
+  oSmtp.BodyFormat := 1;
+  // Set HTML body text
+  oSmtp.BodyText := '<font size=5>This is</font> <font color=red><b>a test</b></font>';
+
+  {// Add attachment from local disk
+  if oSmtp.AddAttachment('c:\test.doc') <> 0 then
+    ShowMessage('Failed to add attachment with error: ' +
+    oSmtp.GetLastErrDescription());
+
+  // Add attachment from remote website
+  if oSmtp.AddAttachment('http://www.emailarchitect.net/webapp/img/logo.jpg') <> 0 then
+    ShowMessage('Failed to add attachment with error: ' +
+    oSmtp.GetLastErrDescription());     }
+
+  // SMTP Server Address
+  oSmtp.ServerAddr := sEmailServer;
+
+  // Authentication with Server
+  oSmtp.UserName := sEmailAddress;
+  oSmtp.Password := sEmailPassword;
+
+  // ConnectTryTLS means if server supports SSL/TLS connection, SSL/TLS is used automatically
+  oSmtp.ConnectType := ConnectTryTLS;
+
+  // If your server uses 587 port
+  // oSmtp.ServerPort := 587;
+
+  // If your server uses 25/587/465 port with SSL/TLS
+  // oSmtp.ConnectType := ConnectSSLAuto;
+  // oSmtp.ServerPort := 587; // 25 or 587 or 465
+
+  // Send Email
+  ShowMessage('start to send email ...');
+  if oSmtp.SendMail() = 0 then
+    ShowMessage('email was sent successfully!')
+  else
+    ShowMessage('failed to send email with the following error: '
+    + oSmtp.GetLastErrDescription());
+
+end;
+
+procedure TInit.tTimerTimer(Sender: TObject);
+begin
+
+  // Disable the Timer
+  tTimer.Enabled := False;
+
+  // CodePolish (The Debugger)
+  lblProcess.Caption := 'CodePolish';
+
+  // Licensing
+  lblProcess.Caption := 'Licensing';
+
+  // Calico Features
+  lblProcess.Caption := 'Calico Advanced Features';
+
+  if MessageDlg('Would you like to utilise advanced features in your current session?', TMsgDlgType.mtConfirmation, [mbYes, mbNo], mrYes) = mrYes then
+  begin
+
+    // Set Calico Features to True
+    bCalico := True;
+    CalicoFeatures(bCalico);
+
+  end
+  else
+  begin
+
+    // Set Calico Features to False
+    bCalico := False;
+    CalicoFeatures(bCalico);
+
+  end;
+
+  // Templates
+  lblProcess.Caption := 'Templates';
+
+  // Email
+  sEmailServer := 'mail.onlineinnovations.com';
+  sEmailAddress := 'worcester@specstores.co.za';
+  sEmailPassword := 'Kitkat@0713';
+
+  // Login
+  // This is currently replaced for the Dashboard directly as login is not available.
+  lblProcess.Caption := 'Completed';
+
+  frmDashboard.Show;
+  Init.Hide;
+
+end;
+
+end.
