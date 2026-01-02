@@ -7,7 +7,8 @@ uses
   MedicalCodes_u in 'MedicalCodes_u.pas' {frmMedicalCodes},
   SendEmail_u in 'SendEmail_u.pas' {frmSendEmail},
   EASendMailObjLib_TLB in 'EASendMailObjLib_TLB.pas',
-  MedicalAidView_u in 'MedicalAidView_u.pas' {frmMedicalAidView};
+  MedicalAidView_u in 'MedicalAidView_u.pas' {frmMedicalAidView},
+  Stores_u in 'Stores_u.pas' {frmStores};
 
 {$R *.res}
 
@@ -19,5 +20,6 @@ begin
   Application.CreateForm(TfrmMedicalCodes, frmMedicalCodes);
   Application.CreateForm(TfrmSendEmail, frmSendEmail);
   Application.CreateForm(TfrmMedicalAidView, frmMedicalAidView);
+  Application.CreateForm(TfrmStores, frmStores);
   Application.Run;
 end.
