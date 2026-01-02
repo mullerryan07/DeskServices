@@ -4,19 +4,59 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Menus;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Menus, Vcl.ComCtrls,
+  Vcl.Imaging.jpeg, Vcl.ExtCtrls;
 
 type
   TfrmMedicalAidView = class(TForm)
-    lblHeading: TLabel;
-    PopupMenu1: TPopupMenu;
+    pmMedicalAidViewer: TPopupMenu;
     MedicalAidKeyinCalico1: TMenuItem;
+    PageControl1: TPageControl;
+    tbsMedicalAidPlans: TTabSheet;
+    tbsContactDetails: TTabSheet;
+    lblAdministrator: TLabel;
+    lblPeriod: TLabel;
+    edtAdministrator: TEdit;
+    edtPeriod: TEdit;
+    edtContracted: TEdit;
+    lblContracted: TLabel;
+    lblPhysical: TLabel;
+    edtPA1: TEdit;
+    edtPA2: TEdit;
+    edtPA3: TEdit;
+    edtPA4: TEdit;
+    edtPA5: TEdit;
+    edtPA6: TEdit;
+    lblPostal: TLabel;
+    edtPO1: TEdit;
+    edtPO2: TEdit;
+    edtPO3: TEdit;
+    edtPO4: TEdit;
+    edtPO5: TEdit;
+    edtPO6: TEdit;
+    lblContact: TLabel;
+    edtContactPerson: TEdit;
+    lblEmail: TLabel;
+    edtEmailAddress: TEdit;
+    lblFaxNumber: TLabel;
+    edtFax: TEdit;
+    edtPhone: TEdit;
+    lblTelephone: TLabel;
+    tbsMediSwitch: TTabSheet;
+    Image1: TImage;
+    lblEDICode: TLabel;
+    edtEDICode: TEdit;
+    lblHeading: TLabel;
+    lblOptions: TLabel;
+    tbsComments: TTabSheet;
+    redComments: TRichEdit;
+    btnClose: TButton;
+    btnSave: TButton;
     procedure MedicalAidKeyinCalico1Click(Sender: TObject);
   private
     { Private declarations }
   public
     procedure ShowScreen(sMedicalAidKey : string);
-
     var sCurrentMedicalAidKey : string;
   end;
 
@@ -42,6 +82,11 @@ end;
 
 procedure TfrmMedicalAidView.ShowScreen(sMedicalAidKey: string);
 begin
+
+
+
+  // Set Current Medical Aid Key
+  sCurrentMedicalAidKey := sMedicalAidKey;
 
   // Show Screen
   frmMedicalAidView.Parent := frmDashboard;
