@@ -1,0 +1,214 @@
+unit Stores_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls;
+
+type
+  TfrmStores = class(TForm)
+    PageControl1: TPageControl;
+    tbsStoreDetails: TTabSheet;
+    lblHeading: TLabel;
+    cmbLookup: TComboBox;
+    btnClose: TButton;
+    lbStores: TListBox;
+    imgStoreLogo: TImage;
+    redStore: TMemo;
+    procedure OnChange(Sender: TObject);
+    procedure OnStoreClick(Sender: TObject);
+    procedure btnCloseClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    procedure ShowScreen;
+    procedure SpecSaversStores;
+    procedure ExecuspecsStores;
+    procedure EyebarStores;
+  end;
+
+var
+  frmStores: TfrmStores;
+
+implementation
+
+uses
+Init_u, Dashboard_u;
+
+{$R *.dfm}
+
+{ TForm1 }
+
+procedure TfrmStores.btnCloseClick(Sender: TObject);
+begin
+
+  // Close
+  frmStores.Close;
+
+end;
+
+procedure TfrmStores.ExecuspecsStores;
+begin
+
+  // Set Image
+  imgStoreLogo.Visible := True;
+  imgStoreLogo.Picture.LoadFromFile('Imagery\Logo_Execuspecs.png');
+
+  // Index
+  Init.tblStores.First;
+
+  while not Init.tblStores.Eof do
+  begin
+
+    if Init.tblStores['BuyingGroup'] = 'EX' then
+    begin
+      lbStores.Items.Add(Init.tblStores['StoreName']);
+    end;
+
+    Init.tblStores.Next;
+
+  end;
+
+end;
+
+procedure TfrmStores.EyebarStores;
+begin
+
+  // Set Image
+  imgStoreLogo.Visible := True;
+  imgStoreLogo.Picture.LoadFromFile('Imagery\Logo_Eyebar.png');
+
+  // Index
+  Init.tblStores.First;
+
+  while not Init.tblStores.Eof do
+  begin
+
+    if Init.tblStores['BuyingGroup'] = 'EY' then
+    begin
+      lbStores.Items.Add(Init.tblStores['StoreName']);
+    end;
+
+    Init.tblStores.Next;
+
+  end;
+
+  // Warning
+  redStore.Lines.Add('There are no longer any Eyebar stores in operation. All stores listed in this directory are inactive and no longer open to the public.')
+
+end;
+
+procedure TfrmStores.OnChange(Sender: TObject);
+begin
+
+  // Clear Rich Edit
+  redStore.Clear;
+
+  // Clear Listbox
+  lbStores.Clear;
+
+  // On change of a lookup
+
+  if cmbLookup.ItemIndex = 0 then
+    SpecSaversStores;
+
+  if cmbLookup.ItemIndex = 1 then
+    ExecuspecsStores;
+
+  if cmbLookup.ItemIndex = 2 then
+    EyebarStores;
+
+end;
+
+procedure TfrmStores.OnStoreClick(Sender: TObject);
+begin
+
+  // Extract Store Name
+  var sStore : string := lbStores.Items[lbStores.ItemIndex];
+
+  // Clear Rich Edit
+  redStore.Clear;
+
+  // Lookup the Store
+  Init.tblStores.First;
+
+  while not Init.tblStores.Eof do
+  begin
+
+    if Init.tblStores['StoreName'] = sStore then
+    begin
+
+      // Store Found
+
+      if Init.tblStores['IsActive'] = 0 then
+      begin
+
+        // Store is no longer in operation
+        redStore.Lines.Add('This store is no longer in operation' + #13);
+
+      end;
+
+      redStore.Lines.Add('Store Name: ' + #9 + Init.tblStores['StoreName']);
+      redStore.Lines.Add('Branch Code: ' + #9 + Init.tblStores['BranchCode']);
+      redStore.Lines.Add('Buying Group: ' + #9 + Init.tblStores['BuyingGroup']);
+      redStore.Lines.Add('Practice No: ' + #9 + Init.tblStores['PracticeNo']);
+
+      redStore.Lines.Add(#13 + 'Store Address: ' + #13 + Init.tblStores['StoreAdress']);
+
+    end;
+
+    Init.tblStores.Next;
+
+  end;
+
+end;
+
+procedure TfrmStores.ShowScreen;
+begin
+
+  // Set cmbLookup index to -1
+  cmbLookup.ItemIndex := -1;
+
+  // Remove the picture
+  imgStoreLogo.Visible := False;
+
+  // Clear Rich Edit
+  redStore.Clear;
+
+  // Clear the List box
+  lbStores.Clear;
+
+  // Show Screen
+
+  frmStores.Parent := frmDashboard;
+  frmStores.Show;
+
+end;
+
+procedure TfrmStores.SpecSaversStores;
+begin
+
+  // Set Image
+  imgStoreLogo.Visible := True;
+  imgStoreLogo.Picture.LoadFromFile('Imagery\Logo_SpecSavers.png');
+
+  // Index
+  Init.tblStores.First;
+
+  while not Init.tblStores.Eof do
+  begin
+
+    if Init.tblStores['BuyingGroup'] = 'SS' then
+    begin
+      lbStores.Items.Add(Init.tblStores['StoreName']);
+    end;
+
+    Init.tblStores.Next;
+
+  end;
+
+end;
+
+end.
