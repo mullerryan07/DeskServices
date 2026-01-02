@@ -1,0 +1,91 @@
+unit MedicalAidView_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Menus, Vcl.ComCtrls,
+  Vcl.Imaging.jpeg, Vcl.ExtCtrls;
+
+type
+  TfrmMedicalAidView = class(TForm)
+    pmMedicalAidViewer: TPopupMenu;
+    MedicalAidKeyinCalico1: TMenuItem;
+    PageControl1: TPageControl;
+    tbsMedicalAidPlans: TTabSheet;
+    tbsContactDetails: TTabSheet;
+    lblAdministrator: TLabel;
+    lblPeriod: TLabel;
+    edtAdministrator: TEdit;
+    edtPeriod: TEdit;
+    edtContracted: TEdit;
+    lblContracted: TLabel;
+    lblPhysical: TLabel;
+    edtPA1: TEdit;
+    edtPA2: TEdit;
+    edtPA3: TEdit;
+    edtPA4: TEdit;
+    edtPA5: TEdit;
+    edtPA6: TEdit;
+    lblPostal: TLabel;
+    edtPO1: TEdit;
+    edtPO2: TEdit;
+    edtPO3: TEdit;
+    edtPO4: TEdit;
+    edtPO5: TEdit;
+    edtPO6: TEdit;
+    lblContact: TLabel;
+    edtContactPerson: TEdit;
+    lblEmail: TLabel;
+    edtEmailAddress: TEdit;
+    lblFaxNumber: TLabel;
+    edtFax: TEdit;
+    edtPhone: TEdit;
+    lblTelephone: TLabel;
+    tbsMediSwitch: TTabSheet;
+    Image1: TImage;
+    lblEDICode: TLabel;
+    edtEDICode: TEdit;
+    lblHeading: TLabel;
+    lblOptions: TLabel;
+    tbsComments: TTabSheet;
+    redComments: TRichEdit;
+    procedure MedicalAidKeyinCalico1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    procedure ShowScreen(sMedicalAidKey : string);
+
+    var sCurrentMedicalAidKey : string;
+  end;
+
+var
+  frmMedicalAidView: TfrmMedicalAidView;
+
+implementation
+
+uses
+Init_u, Dashboard_u;
+
+{$R *.dfm}
+
+{ TfrmMedicalAidView }
+
+procedure TfrmMedicalAidView.MedicalAidKeyinCalico1Click(Sender: TObject);
+begin
+
+  // ShowMessage with the Database Key in Calico
+  ShowMessage('Medical Aid Key: ' + sCurrentMedicalAidKey + #13 + 'Calico Database Relay 1: dbo.sec_MedicalAid' + #13 + 'Calico Database Relay 2: dbo.sec_MedicalAidPlans');
+
+end;
+
+procedure TfrmMedicalAidView.ShowScreen(sMedicalAidKey: string);
+begin
+
+  // Show Screen
+  frmMedicalAidView.Parent := frmDashboard;
+  frmMedicalAidView.Show;
+
+end;
+
+end.
