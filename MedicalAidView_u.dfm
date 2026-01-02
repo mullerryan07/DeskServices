@@ -44,7 +44,7 @@ object frmMedicalAidView: TfrmMedicalAidView
     Margins.Top = 6
     Margins.Right = 6
     Margins.Bottom = 6
-    ActivePage = tbsMedicalAidPlans
+    ActivePage = tbsMediSwitch
     TabOrder = 0
     object tbsMedicalAidPlans: TTabSheet
       Margins.Left = 6
@@ -854,7 +854,7 @@ object frmMedicalAidView: TfrmMedicalAidView
       end
       object edtEDICode: TEdit
         Left = 256
-        Top = 26
+        Top = 29
         Width = 338
         Height = 40
         Margins.Left = 6

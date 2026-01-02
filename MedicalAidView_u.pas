@@ -83,10 +83,52 @@ end;
 procedure TfrmMedicalAidView.ShowScreen(sMedicalAidKey: string);
 begin
 
-
-
   // Set Current Medical Aid Key
   sCurrentMedicalAidKey := sMedicalAidKey;
+
+  // Get Medical Aid Key
+  Init.tblMedicalAid.First;
+
+  while not Init.tblMedicalAid.Eof do
+  begin
+
+    if Init.tblMedicalAid['MedicalAidKey'] = sMedicalAidKey then
+    begin
+
+      // Medical Aid is Correct
+
+      lblHeading.Caption := Init.tblMedicalAid['MedicalAidName'];
+
+      edtAdministrator.Text := Init.tblMedicalAid['Administrator'];
+      edtPeriod.Text := Init.tblMedicalAid['Period'];
+      edtContracted.Text := Init.tblMedicalAid['Contracted'];
+
+      edtPA1.Text := Init.tblMedicalAid['MedicalAidPhysicalAddress1'];
+      edtPA2.Text := Init.tblMedicalAid['MedicalAidPhysicalAddress2'];
+      edtPA3.Text := Init.tblMedicalAid['MedicalAidPhysicalAddress3'];
+      edtPA4.Text := Init.tblMedicalAid['MedicalAidPhysicalAddress4'];
+      edtPA5.Text := Init.tblMedicalAid['MedicalAidPhysicalAddress5'];
+      edtPA6.Text := Init.tblMedicalAid['MedicalAidPhysicalAddress6'];
+
+      edtPO1.Text := Init.tblMedicalAid['MedicalAidPostalAddress1'];
+      edtPO2.Text := Init.tblMedicalAid['MedicalAidPostalAddress2'];
+      edtPO3.Text := Init.tblMedicalAid['MedicalAidPostalAddress3'];
+      edtPO4.Text := Init.tblMedicalAid['MedicalAidPostalAddress4'];
+      edtPO5.Text := Init.tblMedicalAid['MedicalAidPostalAddress5'];
+      edtPO6.Text := Init.tblMedicalAid['MedicalAidPostalAddress6'];
+
+      edtContactPerson.Text := Init.tblMedicalAid['MedicalAidContactPerson'];
+      edtEmailAddress.Text := Init.tblMedicalAid['MedicalAidEMailAddress'];
+      edtPhone.Text := Init.tblMedicalAid['MedicalAidPhoneNumber'];
+      edtFax.Text := Init.tblMedicalAid['MedicalAidFaxNumber'];
+
+      edtEDICode.Text := Init.tblMedicalAid['EDICode'];
+
+    end;
+
+    Init.tblMedicalAid.Next;
+
+  end;
 
   // Show Screen
   frmMedicalAidView.Parent := frmDashboard;
