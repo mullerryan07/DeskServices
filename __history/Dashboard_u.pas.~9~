@@ -1,0 +1,131 @@
+unit Dashboard_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus;
+
+type
+  TfrmDashboard = class(TForm)
+    MainMenu1: TMainMenu;
+    Exit1: TMenuItem;
+    Exit2: TMenuItem;
+    MedicalAidLookup1: TMenuItem;
+    MedicalAidLookup2: TMenuItem;
+    ICD10Codes2: TMenuItem;
+    N1: TMenuItem;
+    Appointments1: TMenuItem;
+    Appointments2: TMenuItem;
+    Stock1: TMenuItem;
+    Stock2: TMenuItem;
+    ListofSuppliers1: TMenuItem;
+    ListofSuppliers2: TMenuItem;
+    Query1: TMenuItem;
+    Email1: TMenuItem;
+    Email2: TMenuItem;
+    EmailPreferences1: TMenuItem;
+    EmailPreferences2: TMenuItem;
+    Documentation1: TMenuItem;
+    N2: TMenuItem;
+    CodePolish1: TMenuItem;
+    N3: TMenuItem;
+    LicenseManager1: TMenuItem;
+    LicenseManager2: TMenuItem;
+    procedure Exit1Click(Sender: TObject);
+    procedure OnClose(Sender: TObject; var Action: TCloseAction);
+    procedure MedicalAidLookup1Click(Sender: TObject);
+    procedure Stock2Click(Sender: TObject);
+    procedure ListofSuppliers1Click(Sender: TObject);
+    procedure Query1Click(Sender: TObject);
+    procedure MedicalAidLookup2Click(Sender: TObject);
+    procedure Email2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmDashboard: TfrmDashboard;
+
+implementation
+
+uses
+Init_u, MedicalCodes_u, SendEmail_u;
+
+{$R *.dfm}
+
+procedure TfrmDashboard.Email2Click(Sender: TObject);
+begin
+
+  frmSendEmail.ShowScreen('','','','','');
+
+end;
+
+procedure TfrmDashboard.Exit1Click(Sender: TObject);
+begin
+
+  Application.Terminate;
+
+end;
+
+procedure TfrmDashboard.ListofSuppliers1Click(Sender: TObject);
+begin
+
+  // List of Stock Suppliers
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.MedicalAidLookup1Click(Sender: TObject);
+begin
+
+  // Medical Aid Lookup
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.MedicalAidLookup2Click(Sender: TObject);
+begin
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+  // Show Medical Codes Screen
+  frmMedicalCodes.ShowScreen;
+
+end;
+
+procedure TfrmDashboard.OnClose(Sender: TObject; var Action: TCloseAction);
+begin
+
+  Application.Terminate;
+
+end;
+
+procedure TfrmDashboard.Query1Click(Sender: TObject);
+begin
+
+  // Patient Query
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
+
+procedure TfrmDashboard.Stock2Click(Sender: TObject);
+begin
+
+  // Stock Lookup
+
+  // Calico Database Check
+  Init.CalicoCheck;
+
+end;
+
+end.

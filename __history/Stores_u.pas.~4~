@@ -1,0 +1,104 @@
+unit Stores_u;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls;
+
+type
+  TfrmStores = class(TForm)
+    PageControl1: TPageControl;
+    tbsStoreDetails: TTabSheet;
+    lblHeading: TLabel;
+    cmbLookup: TComboBox;
+    btnClose: TButton;
+    lbStores: TListBox;
+    imgStoreLogo: TImage;
+    redStore: TMemo;
+    procedure OnChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    procedure ShowScreen;
+    procedure SpecSaversStores;
+    procedure ExecuspecsStores;
+    procedure EyebarStores;
+  end;
+
+var
+  frmStores: TfrmStores;
+
+implementation
+
+uses
+Init_u, Dashboard_u;
+
+{$R *.dfm}
+
+{ TForm1 }
+
+procedure TfrmStores.ExecuspecsStores;
+begin
+
+
+
+end;
+
+procedure TfrmStores.EyebarStores;
+begin
+
+
+
+end;
+
+procedure TfrmStores.OnChange(Sender: TObject);
+begin
+
+  // On change of a lookup
+
+  if cmbLookup.ItemIndex = 0 then
+    SpecSaversStores;
+
+  if cmbLookup.ItemIndex = 1 then
+    ExecuspecsStores;
+
+  if cmbLookup.ItemIndex = 2 then
+    EyebarStores;
+
+end;
+
+procedure TfrmStores.ShowScreen;
+begin
+
+  // Set cmbLookup index to -1
+  cmbLookup.ItemIndex := -1;
+
+  // Remove the picture
+  imgStoreLogo.Visible := False;
+
+  // Clear Rich Edit
+  redStore.Clear;
+
+  // Clear the List box
+  lbStores.Clear;
+
+  // Show Screen
+
+  frmStores.Parent := frmDashboard;
+  frmStores.Show;
+
+end;
+
+procedure TfrmStores.SpecSaversStores;
+begin
+
+  // Set Image
+  imgStoreLogo.Picture.LoadFromFile('Imagery\Logo_SpecSavers');
+
+  // Index
+
+end;
+
+end.
